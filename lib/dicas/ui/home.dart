@@ -5,15 +5,16 @@ import '../dica.dart';
 import 'detail.dart';
 
 class HomePage extends StatefulWidget {
-  final List<Dica> dicas = [];
+  List<Dica> dicas;
 
-  HomePage(List<Dica> dicas, {Key? key}) : super(key: key);
+  HomePage(this.dicas, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
             final dica = widget.dicas[index];
             return ListTile(
               title: Text(dica.description),
-              subtitle: Text(dica.message.substring(0, 50)),
+              subtitle: Text(dica.message),
               onTap: () {
                 Navigator.push(
                   context,
