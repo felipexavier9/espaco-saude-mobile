@@ -19,7 +19,7 @@ class DicaService {
       ).timeout(const Duration(seconds: 30));
 
       if (response.statusCode == 200) {
-        var dicas = json.decode(response.body);
+        var dicas = jsonDecode(const Utf8Decoder().convert(response.bodyBytes));
         return dicas.map<Dica>((dica) => Dica.fromJson(dica)).toList();
       }
       return [];

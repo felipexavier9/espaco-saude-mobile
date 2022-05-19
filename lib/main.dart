@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
             const service = DicaService();
             final dicas = await service.getDicas();
             if (dicas.isNotEmpty) {
-              return HomePage(dicas);
+              return HomePage(service, dicas);
             }
-            return const EmptyPage();
+            return const EmptyPage(service);
           },
         ),
     );

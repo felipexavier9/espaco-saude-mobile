@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../dica.dart';
+import '../service.dart';
 import 'detail.dart';
 
 class HomePage extends StatefulWidget {
   List<Dica> dicas;
+  DicaService dicaService;
 
-  HomePage(this.dicas, {Key? key}) : super(key: key);
+  HomePage(this.dicaService, this.dicas, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HomePageState();
