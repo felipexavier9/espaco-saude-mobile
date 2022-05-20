@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         home: AnimatedSplashScreen.withScreenFunction(
           splash: SvgPicture.asset('assets/espaco_saude_load.svg'),
-          duration: 3000,
+          duration: 5000,
           animationDuration: const Duration(seconds: 5),
           splashTransition: SplashTransition.fadeTransition,
           pageTransitionType: PageTransitionType.fade,
