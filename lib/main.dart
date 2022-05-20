@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Espaço Saúde',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(primarySwatch: Colors.cyan),
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen.withScreenFunction(
         splash: SvgPicture.asset('assets/espaco_saude_load.svg'),
@@ -30,11 +30,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
         screenFunction: () async {
           const service = DicaService();
-          final dicas = await service.getDicas();
-          if (dicas.isNotEmpty) {
-            return HomePage(service, dicas);
-          }
-          return const EmptyPage(service);
+          return HomePage(service);
         },
       ),
     );

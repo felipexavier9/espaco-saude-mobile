@@ -1,4 +1,5 @@
 import 'package:espaco_saude/dicas/service.dart';
+import 'package:espaco_saude/dicas/ui/dicasview.dart';
 import 'package:espaco_saude/dicas/ui/home.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -43,7 +44,7 @@ class EmptyPage extends StatelessWidget {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => HomePage(dicaService, dicas)));
+              builder: (context) => DicasView(dicaService, dicas)));
     }
     return;
   }
