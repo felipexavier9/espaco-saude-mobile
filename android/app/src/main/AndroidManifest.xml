@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jfal.jus.br.espaco_saude">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="espaco_saude"
         android:name="${applicationName}"

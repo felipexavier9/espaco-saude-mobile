@@ -1,38 +1,44 @@
+import 'dart:async';
+
 import 'package:espaco_saude/dicas/ui/dicasview.dart';
 import 'package:espaco_saude/dicas/ui/empty.dart';
-import 'package:espaco_saude/dicas/ui/toolbar.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-
-import 'package:flutter_html/flutter_html.dart';
 
 import '../dica.dart';
 import '../service.dart';
-import 'detail.dart';
 
 class HomePage extends StatefulWidget {
-  List<Dica> dicas;
-  DicaService dicaService;
+  final DicaService dicaService;
 
-  HomePage(this.dicaService, {Key key}) : super(key: key);
+  const HomePage(this.dicaService, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HomePageState();
-  Future<void> initState() async {
-    dicas = await dicaService.getDicas();
-    return;
-  }
 }
 
 class _HomePageState extends State<HomePage> {
-  callDicas() async {
-    dicas = await widget.dicaService.getDicas();
-    return;
+  List<Dica> dicas = [];
+
+  @override
+  initState() async {
+    super.initState();
+    await Future.delayed(const Duration(seconds: 2), _getDicas);
+  }
+
+  FutureOr<void> _getDicas() async {
+    widget.dicaService.getDicas().then((dicas) async => {
+      if (dicas.isNotEmpty) {
+        setState(() {
+          this.dicas = dicas;
+        })
+      } else {
+        await Future.delayed(const Duration(seconds: 5), _getDicas)
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    callDicas();
     return Material(
       child: Scaffold(
         appBar: AppBar(
@@ -41,37 +47,27 @@ class _HomePageState extends State<HomePage> {
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.notification_add_outlined),
-              tooltip: 'Go to the next page',
-              // ignore: void_checks
-              onPressed: () {
-                {
-                  if (dicas.isNotEmpty) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DicasView(service, dicas)));
-                  } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const EmptyPage(
-                                  service,
-                                )));
-                  }
-                }
-              },
+              tooltip: 'Ir para página de dicas',
+              onPressed: () =>_navigateToDicas(context)
             ),
           ],
         ),
         body: Column(
           children: [
             Expanded(
-              // your image goes here which will take as much height as possible.
               child: Image.asset('assets/img-01.png', fit: BoxFit.fill),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  void _navigateToDicas(BuildContext context) {
+    final nextPage = dicas.isEmpty ? EmptyPage(widget.dicaService) : DicasView(widget.dicaService, dicas);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => nextPage),
     );
   }
 }
