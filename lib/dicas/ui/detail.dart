@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 import '../dica.dart';
 
@@ -20,7 +21,7 @@ class _DetailState extends State<Detail> {
         title: Text(widget.dica.description),
       ),
       body: Center(
-        child: Text(widget.dica.message),
+        child: Html(data: widget.dica.message),
       ),
     );
   }

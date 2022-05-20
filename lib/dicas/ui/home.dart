@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../dica.dart';
@@ -31,7 +32,7 @@ class _HomePageState extends State<HomePage> {
             final dica = widget.dicas[index];
             return ListTile(
               title: Text(dica.description),
-              subtitle: Text(dica.message),
+              subtitle: Html(data: dica.message),
               onTap: () {
                 Navigator.push(
                   context,
