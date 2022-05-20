@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.cyan),
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
-        nextScreen: HomePage(const DicaService()),
+        nextScreen: const HomePage(DicaService()),
         splash: SvgPicture.asset('assets/espaco_saude_load.svg'),
         animationDuration: const Duration(seconds: 3),
         splashTransition: SplashTransition.fadeTransition,

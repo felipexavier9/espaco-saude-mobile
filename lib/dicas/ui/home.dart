@@ -20,9 +20,9 @@ class _HomePageState extends State<HomePage> {
   List<Dica> dicas = [];
 
   @override
-  initState() async {
+  initState() {
     super.initState();
-    await Future.delayed(const Duration(seconds: 2), _getDicas);
+    Future.delayed(const Duration(seconds: 2), _getDicas);
   }
 
   FutureOr<void> _getDicas() async {
