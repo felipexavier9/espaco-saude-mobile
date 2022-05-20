@@ -40,7 +40,7 @@ class EmptyPage extends StatelessWidget {
   Future<void> _refresh(BuildContext context) async {
     final dicas = await dicaService.getDicas();
     if (dicas.isNotEmpty) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(dicaService, dicas)));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(dicaService, dicas)));
     }
     return;
   }
