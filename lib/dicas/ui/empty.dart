@@ -1,6 +1,5 @@
 import 'package:espaco_saude/dicas/service.dart';
-import 'package:espaco_saude/dicas/ui/home.dart';
-import 'package:espaco_saude/dicas/ui/toolbar.dart';
+import 'package:espaco_saude/dicas/ui/dicasview.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -13,7 +12,10 @@ class EmptyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: toolbar(),
+        appBar: AppBar(
+          title: Image.asset('assets/espaco_saude.png'),
+          centerTitle: true,
+        ),
         body: RefreshIndicator(
           onRefresh: () => _refresh(context),
           child:  Stack(
@@ -37,7 +39,7 @@ class EmptyPage extends StatelessWidget {
   Future<void> _refresh(BuildContext context) async {
     final dicas = await dicaService.getDicas();
     if (dicas.isNotEmpty) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomePage(dicaService, dicas)));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DicasView(dicaService, dicas)));
     }
     return;
   }

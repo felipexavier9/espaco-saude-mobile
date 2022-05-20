@@ -1,77 +1,68 @@
-import 'dart:math';
-import 'package:html/parser.dart';
-import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-
+import 'package:espaco_saude/dicas/ui/dicasview.dart';
+import 'package:espaco_saude/dicas/ui/empty.dart';
 import 'package:espaco_saude/dicas/ui/toolbar.dart';
+import 'package:flutter/material.dart';
+
 import '../dica.dart';
 import '../service.dart';
-import 'detail.dart';
 
 class HomePage extends StatefulWidget {
-  List<Dica> dicas;
   DicaService dicaService;
 
-  HomePage(this.dicaService, this.dicas, {Key? key}) : super(key: key);
+  HomePage(this.dicaService, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Dica> dicas = [];
+
+  callDicas() async {
+    dicas = await widget.dicaService.getDicas();
+    return;
+  }
 
   @override
   Widget build(BuildContext context) {
+    callDicas();
     return Material(
       child: Scaffold(
-        appBar: toolbar(),
-        body: RefreshIndicator(
-          onRefresh: _refresh,
-          child: ListView.builder(
-            itemCount: widget.dicas.length,
-            itemBuilder: (context, index) {
-              final dica = widget.dicas[index];
-              return ListTile(
-                title: Text(_firstLineMaxLen(dica.description, 34)),
-                leading: const Icon(Icons.notification_important),
-                subtitle: Text(_firstLineMaxLen(_stripHtml(dica.message), 42)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                      type: PageTransitionType.rightToLeft,
-                      child: Detail(dica),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
+        appBar: AppBar(
+          title: Image.asset('assets/espaco_saude.png'),
+          centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.notification_add_outlined),
+              tooltip: 'Go to the next page',
+              // ignore: void_checks
+              onPressed: () {
+                  if (dicas.isNotEmpty) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DicasView(widget.dicaService, dicas)));
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EmptyPage(
+                                  widget.dicaService,
+                                )));
+                  }
+              },
+            ),
+          ],
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              // your image goes here which will take as much height as possible.
+              child: Image.asset('assets/img-01.png', fit: BoxFit.fill),
+            ),
+          ],
         ),
       ),
     );
   }
-
-  Future<void> _refresh() async {
-    return widget.dicaService.getDicas().then((dicas) => {
-      if(dicas.isNotEmpty) {
-        setState(() {
-          widget.dicas = dicas;
-       })
-      }
-    });
-  }
-}
-
-String _firstLineMaxLen(String text, int max ) {
-  if(text.contains("\n")) {
-    text = text.substring(0, text.indexOf("\n"));
-  }
-  final ellipsis = text.length > max;
-  return text.substring(0, min(text.length, max)) + (ellipsis ? '. . .' : '');
-}
-
-String _stripHtml(String html) {
-  final document = parse(html);
-  return document.body?.text ?? "";
 }
