@@ -27,14 +27,15 @@ class _HomePageState extends State<HomePage> {
 
   FutureOr<void> _getDicas() async {
     widget.dicaService.getDicas().then((dicas) async => {
-      if (dicas.isNotEmpty) {
-        setState(() {
-          this.dicas = dicas;
-        })
-      } else {
-        await Future.delayed(const Duration(seconds: 5), _getDicas)
-      }
-    });
+          if (dicas.isNotEmpty)
+            {
+              setState(() {
+                this.dicas = dicas;
+              })
+            }
+          else
+            {await Future.delayed(const Duration(seconds: 5), _getDicas)}
+        });
   }
 
   @override
@@ -46,16 +47,15 @@ class _HomePageState extends State<HomePage> {
           centerTitle: true,
           actions: <Widget>[
             IconButton(
-              icon: const Icon(Icons.notification_add_outlined),
-              tooltip: 'Ir para página de dicas',
-              onPressed: () =>_navigateToDicas(context)
-            ),
+                icon: const Icon(Icons.notification_add_outlined),
+                tooltip: 'Ir para página de dicas',
+                onPressed: () => _navigateToDicas(context)),
           ],
         ),
         body: Column(
           children: [
             Expanded(
-              child: Image.asset('assets/img-01.png', fit: BoxFit.fill),
+              child: Image.asset('assets/img-01.jpg', fit: BoxFit.fill),
             ),
           ],
         ),
@@ -64,7 +64,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _navigateToDicas(BuildContext context) {
-    final nextPage = dicas.isEmpty ? EmptyPage(widget.dicaService) : DicasView(widget.dicaService, dicas);
+    final nextPage = dicas.isEmpty
+        ? EmptyPage(widget.dicaService)
+        : DicasView(widget.dicaService, dicas);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => nextPage),
