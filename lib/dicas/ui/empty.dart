@@ -1,5 +1,6 @@
 import 'package:espaco_saude/dicas/service.dart';
 import 'package:espaco_saude/dicas/ui/home.dart';
+import 'package:espaco_saude/dicas/ui/toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -12,15 +13,11 @@ class EmptyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Image.asset('assets/espaco_saude.png'),
-        centerTitle: true,
-        backgroundColor: Colors.lightBlueAccent,
-      ),
-      body: RefreshIndicator(
-        onRefresh: () => _refresh(context),
-        child:  Stack(
-          children: <Widget>[ListView(), Column(
+        appBar: toolbar(),
+        body: RefreshIndicator(
+          onRefresh: () => _refresh(context),
+          child:  Stack(
+              children: <Widget>[ListView(), Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Text('Nenhuma dica encontrada!',
