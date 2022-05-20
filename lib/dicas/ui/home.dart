@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
   List<Dica> dicas;
   DicaService dicaService;
 
-  HomePage(this.dicaService, this.dicas, {Key key}) : super(key: key);
+  HomePage(this.dicaService, {Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _HomePageState();
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
               // ignore: void_checks
               onPressed: () {
                 {
-                  if (dicas != null) {
+                  if (dicas.isNotEmpty) {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Expanded(
               // your image goes here which will take as much height as possible.
-              child: Image.asset('assets/img-01.png', fit: BoxFit.contain),
+              child: Image.asset('assets/img-01.png', fit: BoxFit.fill),
             ),
           ],
         ),

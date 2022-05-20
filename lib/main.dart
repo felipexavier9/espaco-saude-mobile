@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
       title: 'Espaço Saúde',
       theme: ThemeData(primarySwatch: Colors.cyan),
       debugShowCheckedModeBanner: false,
@@ -31,8 +30,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.white,
         screenFunction: () async {
           const service = DicaService();
-          final dicas = await service.getDicas();
-          return HomePage(service, dicas);
+          return HomePage(service);
         },
       ),
     );
