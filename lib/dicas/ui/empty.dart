@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:espaco_saude/dicas/service.dart';
+import 'package:espaco_saude/dicas/ui/dicasview.dart';
 import 'package:espaco_saude/dicas/ui/home.dart';
 import 'package:espaco_saude/dicas/ui/toolbar.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +15,10 @@ class EmptyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: toolbar(),
+        appBar: AppBar(
+          title: Image.asset('assets/espaco_saude.png'),
+          centerTitle: true,
+        ),
         body: RefreshIndicator(
           onRefresh: () => _refresh(context),
           child: Column(
@@ -41,7 +47,7 @@ class EmptyPage extends StatelessWidget {
       Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => HomePage(dicaService, dicas)));
+              builder: (context) => DicasView(dicaService, dicas)));
     }
     return;
   }

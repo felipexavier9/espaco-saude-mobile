@@ -1,6 +1,5 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
-import 'package:espaco_saude/dicas/ui/toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -19,7 +18,10 @@ class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: toolbar(),
+        appBar: AppBar(
+          title: Image.asset('assets/espaco_saude.png'),
+          centerTitle: true,
+        ),
         body: SingleChildScrollView(child: Html(data: widget.dica.message)));
   }
 }
