@@ -16,7 +16,7 @@ class DicaService {
           headers: {
             'Accept': 'application/json'
           }
-      ).timeout(const Duration(seconds: 30));
+      ).timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         var dicas = jsonDecode(const Utf8Decoder().convert(response.bodyBytes));

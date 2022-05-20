@@ -3,7 +3,6 @@ import 'package:html/parser.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'package:espaco_saude/dicas/ui/empty.dart';
 import 'package:espaco_saude/dicas/ui/toolbar.dart';
 import '../dica.dart';
 import '../service.dart';
