@@ -19,18 +19,14 @@ class MyApp extends StatelessWidget {
       title: 'Espaço Saúde',
       theme: ThemeData(primarySwatch: Colors.cyan),
       debugShowCheckedModeBanner: false,
-      home: AnimatedSplashScreen.withScreenFunction(
+      home: AnimatedSplashScreen(
+        nextScreen: HomePage(const DicaService()),
         splash: SvgPicture.asset('assets/espaco_saude_load.svg'),
-        duration: 3000,
-        animationDuration: const Duration(seconds: 5),
+        animationDuration: const Duration(seconds: 3),
         splashTransition: SplashTransition.fadeTransition,
         pageTransitionType: PageTransitionType.fade,
         backgroundColor: Colors.white,
-        screenFunction: () async {
-          const service = DicaService();
-          return HomePage(service);
-        },
-      ),
+      )
     );
   }
 }

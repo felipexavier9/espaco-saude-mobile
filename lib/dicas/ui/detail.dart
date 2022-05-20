@@ -1,4 +1,3 @@
-import 'package:espaco_saude/dicas/ui/toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:video_player/video_player.dart';
@@ -30,7 +29,10 @@ class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: toolbar(),
+      appBar: AppBar(
+        title: Image.asset('assets/espaco_saude.png'),
+        centerTitle: true,
+      ),
       body: Card(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: 5,
